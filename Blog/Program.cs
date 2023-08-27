@@ -1,6 +1,7 @@
 using Blog.Data;
 using Blog.Data.Models;
 using Blog.Extensions;
+using Blog.Services.Data.Articles;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,8 @@ builder
     .AddRoles<IdentityRole>()
     .AddRoleManager<RoleManager<IdentityRole>>()
     .AddEntityFrameworkStores<BlogDbContext>();
+
+builder.Services.AddServices();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

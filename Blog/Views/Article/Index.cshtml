@@ -1,0 +1,12 @@
+﻿@using Blog.Services.Models;
+@model IEnumerable<ArticleListingServiceModel>
+
+@{
+    this.ViewData["Title"] = "Articles page";
+}
+
+@foreach (var item in Model)
+{
+    <div>item.Id</div>
+    <div>item.Title - item.Author</div>
+}
