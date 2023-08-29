@@ -4,7 +4,7 @@
 
     using static Blog.Data.DataValidations.Article;
 
-    public class CreateArticleInputModel
+    public class ArticleInputModel
     {
         [Required]
         [StringLength(MaxTitleLength, MinimumLength = MinTitleLength)]
@@ -12,7 +12,5 @@
 
         [StringLength(MaxDescriptionLength, MinimumLength = MinDescriptionLength)]
         public string Description { get; set; }
-
-        public string AuthorId { get; set; }
     }
 }

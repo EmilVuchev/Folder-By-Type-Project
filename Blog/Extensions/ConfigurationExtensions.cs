@@ -9,6 +9,5 @@
 
         public static string ThrowExceptionForNotFoundDefaultConnection(this IConfiguration configuration)
             => throw new InvalidOperationException(DefaultConnectionError);
-
     }
 }

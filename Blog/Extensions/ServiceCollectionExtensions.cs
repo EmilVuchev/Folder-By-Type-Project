@@ -3,8 +3,9 @@
     using Services.Data.Common;
     using Data;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Mvc;
 
-    public static class InfrastructureConfigurationsExtensions
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, string connectionString)
             => services
@@ -46,6 +47,16 @@
                     services.AddSingleton(type.Interface, type.Service);
                 }
             }
+
+            return services;
+        }
+
+        public static IServiceCollection AddMvcWithValidation(this IServiceCollection services) 
+        {
+            services.AddControllersWithViews(options =>
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+
+            services.AddRazorPages();
 
             return services;
         }
