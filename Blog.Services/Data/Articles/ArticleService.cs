@@ -1,5 +1,7 @@
 ﻿namespace Blog.Services.Data.Articles
 {
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using Blog.Data;
     using Blog.Data.Models;
     using Blog.Services.Models;
@@ -10,21 +12,20 @@
         private const int ItemsPerPage = 20;
 
         private readonly BlogDbContext dbContext;
+        private readonly IMapper mapper;
 
-        public ArticleService(BlogDbContext dbContext)
-            => this.dbContext = dbContext;
+        public ArticleService(BlogDbContext dbContext, IMapper mapper)
+        {
+            this.dbContext = dbContext;
+            this.mapper = mapper;
+        }
 
         public async Task<IEnumerable<ArticleListingServiceModel>> GetAll(int page)
             => await this.dbContext
                 .Articles
                 .Skip((page - 1) * ItemsPerPage)
                 .Take(ItemsPerPage)
-                .Select(a => new ArticleListingServiceModel
-                {
-                    Id = a.Id,
-                    Title = a.Title,
-                    Author = a.Author.UserName
-                })
+                .ProjectTo<ArticleListingServiceModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
         public async Task<int> Create(string title, string description, string authorId)
@@ -68,13 +69,7 @@
             => await this.dbContext
                 .Articles
                 .Where(a => a.Id == id)
-                .Select(a => new ArticleDetailServiceModel
-                {
-                    Id = a.Id,
-                    Title = a.Title,
-                    Description = a.Description,
-                    Author = a.Author.UserName,
-                })
+                .ProjectTo<ArticleDetailServiceModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
         public async Task<bool> Delete(int id)

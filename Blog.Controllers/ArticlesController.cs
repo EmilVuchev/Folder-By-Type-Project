@@ -6,11 +6,11 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    public class ArticleController : Controller
+    public class ArticlesController : Controller
     {
         private readonly IArticleService articleService;
 
-        public ArticleController(IArticleService articleService)
+        public ArticlesController(IArticleService articleService)
             => this.articleService = articleService;
 
         public async Task<IActionResult> Index(int page = 1)

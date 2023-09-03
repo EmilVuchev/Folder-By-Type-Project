@@ -21,6 +21,8 @@ builder
 builder.Services.AddServices();
 builder.Services.AddMvcWithValidation();
 
+builder.Services.AddAutoMapper(typeof(ConventionalMappingProfile).Assembly);
+
 var app = builder.Build();
 
 app.UseErrorPage(app.Environment);
