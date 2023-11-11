@@ -2,12 +2,13 @@
 {
     using Common;
     using Models;
+    using ViewModels.InputViewModels;
 
     public interface IArticleService : IService
     {
         Task<IEnumerable<ArticleListingServiceModel>> GetAll(int page);
-
-        Task<int> Create(string title, string description, string authorId);
+        
+        Task<int> Create(ArticleInputModel input);
 
         Task<bool> Edit(int id, string title, string description);
 

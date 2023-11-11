@@ -5,6 +5,7 @@
     using Blog.Data;
     using Blog.Data.Models;
     using Blog.Services.Models;
+    using Blog.ViewModels.InputViewModels;
     using Microsoft.EntityFrameworkCore;
 
     public class ArticleService : IArticleService
@@ -28,15 +29,9 @@
                 .ProjectTo<ArticleListingServiceModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
-        public async Task<int> Create(string title, string description, string authorId)
+        public async Task<int> Create(ArticleInputModel input)
         {
-            var article = new Article
-            {
-                Title = title,
-                Description = description,
-                CreatedOn = DateTime.UtcNow,
-                AuthorId = authorId,
-            };
+            var article = this.mapper.Map<Article>(input);
 
             await this.dbContext.AddAsync(article);
             await this.dbContext.SaveChangesAsync();
@@ -83,7 +78,7 @@
 
             this.dbContext.Remove(article);
             await this.dbContext.SaveChangesAsync();
-            
+
             return true;
         }
     }

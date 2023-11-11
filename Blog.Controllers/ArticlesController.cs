@@ -2,22 +2,26 @@
 {
     using Extensions;
     using Services.Data.Articles;
-    using Models.InputViewModels;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using AutoMapper;
+    using ViewModels.InputViewModels;
 
     public class ArticlesController : Controller
     {
+        private readonly IMapper mapper;
         private readonly IArticleService articleService;
 
-        public ArticlesController(IArticleService articleService)
-            => this.articleService = articleService;
+        public ArticlesController(IMapper mapper, IArticleService articleService)
+        {
+            this.mapper = mapper;
+            this.articleService = articleService;
+        }
 
         public async Task<IActionResult> Index(int page = 1)
         {
             var articles = await this.articleService.GetAll(page);
             return this.Ok(articles);
-            //return View(articles);
         }
 
         [HttpGet]
@@ -32,7 +36,7 @@
             if (ModelState.IsValid)
             {
                 var userId = this.User.GetUserId();
-                var id = await this.articleService.Create(input.Title, input.Description, userId);
+                int id = await this.articleService.Create(input);
                 return this.RedirectToAction(nameof(Details), new { id });
             }
 
@@ -90,7 +94,7 @@
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Delete(int id) 
+        public async Task<IActionResult> Delete(int id)
         {
             var userId = this.User.GetUserId();
             var articleExist = await this.articleService.Exists(id, userId);
@@ -105,7 +109,7 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> ConfirmDelete(int id) 
+        public async Task<IActionResult> ConfirmDelete(int id)
         {
             var userId = this.User.GetUserId();
             var articleExist = await this.articleService.Exists(id, userId);

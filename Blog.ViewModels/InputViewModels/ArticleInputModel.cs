@@ -1,10 +1,12 @@
-﻿namespace Blog.Controllers.Models.InputViewModels
+﻿namespace Blog.ViewModels.InputViewModels
 {
+    using Common.Mapping;
+    using Data.Models;
     using System.ComponentModel.DataAnnotations;
 
     using static Blog.Data.DataValidations.Article;
 
-    public class ArticleInputModel
+    public class ArticleInputModel : IMapTo<Article>
     {
         [Required]
         [StringLength(MaxTitleLength, MinimumLength = MinTitleLength)]

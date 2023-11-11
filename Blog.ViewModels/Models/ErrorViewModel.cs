@@ -1,8 +1,8 @@
-﻿namespace Blog.Controllers.Models
+﻿namespace Blog.ViewModels.Models
 {
     public class ErrorViewModel
     {
-        public string RequestId { get; internal set; }
+        public string RequestId { get; set; }
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
