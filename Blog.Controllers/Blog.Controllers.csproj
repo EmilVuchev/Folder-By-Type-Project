@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Blog.InputModels\Blog.ViewModels.csproj" />
     <ProjectReference Include="..\Blog.Services\Blog.Services.csproj" />
+    <ProjectReference Include="..\Blog.ViewModels\Blog.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

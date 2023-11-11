@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Blog.Controllers\Blog.Controllers.csproj" />
+    <ProjectReference Include="..\Blog.ViewModels\Blog.ViewModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>
